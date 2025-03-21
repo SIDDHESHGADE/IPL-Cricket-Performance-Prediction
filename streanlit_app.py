@@ -3,8 +3,9 @@ import pandas as pd
 import pickle 
 
 # Load the trained model
-with open(r"C:\Personal project\IPL\Batter.pkl", "rb") as model_file:  # Use raw string
+with open("Batter.pkl", "rb") as model_file:
     model = pickle.load(model_file)
+
 
 # Load dataset to extract unique dropdown values
 df = pd.read_csv(r"C:\Personal project\IPL\final_data.csv")  
