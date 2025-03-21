@@ -3,8 +3,11 @@ import pandas as pd
 import pickle 
 
 # Load the trained model
-with open("Batter.pkl", "rb") as model_file:
-    model = pickle.load(model_file)
+try:
+    with open("Batter.pkl", "rb") as model_file:
+        model = pickle.load(model_file)
+except FileNotFoundError:
+    st.error("Model file not found. Please check the file path or upload the missing file.")
 
 
 # Load dataset to extract unique dropdown values
@@ -29,7 +32,6 @@ venue = st.selectbox("📍 Select Venue", venue_options)
 team1 = st.selectbox("🏆 Select Team 1", team1_options)
 team2 = st.selectbox("🏆 Select Team 2", team2_options)
 season = st.selectbox("📅 Select Season", season_options)
-
 balls_count = st.number_input("⚾ Enter Balls Count", min_value=1, step=1)
 strike_rate = st.number_input("🚀 Enter Strike Rate", min_value=0.0, step=0.1)
 
@@ -42,4 +44,4 @@ if st.button("📊 Predict"):
     prediction = model.predict(user_input)
 
     # Display the predicted output
-    st.success(f"🎯 Predicted Runs : {prediction[0]}")
+    st.success(f"🎯 Predicted Runs : {abs(round(prediction[0],0))}")
